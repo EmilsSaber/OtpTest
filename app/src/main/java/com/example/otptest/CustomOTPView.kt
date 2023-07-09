@@ -35,7 +35,12 @@ class CustomOTPView @JvmOverloads constructor(
             val editText = editTextList[i]
 
             editText.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -48,15 +53,50 @@ class CustomOTPView @JvmOverloads constructor(
                         focusPreviousEditText(i)
                     }
                 }
+
                 override fun afterTextChanged(s: Editable?) {
                 }
             })
 
             editText.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    if (editText.text.isNotEmpty()) {
+                        editText.selectAll()
+                    } else {
+                        editText.hint = ""
+                    }
+                } else {
+                    if (editText.text.isEmpty()) {
+                        editText.hint = "___"
+                    }
+                }
+
                 if (hasFocus && editText.text.isNotEmpty()) {
-                    editText.selectAll()
+                    editText.text.clear()
                 }
             }
+            editText.setOnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_DEL && event.action == KeyEvent.ACTION_DOWN) {
+                    if (i > 0) {
+                        if (editTextList[i - 1].text.isNotEmpty()) {
+                            editTextList[i - 1].text.clear()
+                            editTextList[i - 1].requestFocus()
+                        } else {
+                            clearPreviousEditTexts(i)
+                            focusPreviousEditText(i)
+                        }
+                    }
+                    true
+                } else {
+                    false
+                }
+            }
+        }
+    }
+
+    private fun clearPreviousEditTexts(index: Int) {
+        for (i in 0 until index) {
+            editTextList[i].text.clear()
         }
     }
 
@@ -69,12 +109,12 @@ class CustomOTPView @JvmOverloads constructor(
         }
     }
 
-
     private fun focusPreviousEditText(index: Int) {
-        if (index > 0) {
+        if (index > 0 && editTextList[index - 1].text.isEmpty()) {
             editTextList[index - 1].requestFocus()
         }
     }
+
 
     @SuppressLint("ServiceCast")
     private fun hideSoftKeyboard() {

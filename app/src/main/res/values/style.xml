@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="CustomEditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -10,5 +11,9 @@
         <item name="android:inputType">number</item>
         <item name="android:maxLength">1</item>
         <item name="android:background">@drawable/custom_edittext_background</item>
+        <item name="android:textCursorDrawable">@drawable/custom_kursor</item>
+        <item name="android:textColorHighlight">@android:color/transparent</item>
+        <item name="android:hint">"__"</item>
+        <item name="android:textColorHint">@color/grayOtp</item>
     </style>
 </resources>
