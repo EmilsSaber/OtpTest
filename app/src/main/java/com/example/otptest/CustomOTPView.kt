@@ -67,7 +67,7 @@ class CustomOTPView @JvmOverloads constructor(
                     }
                 } else {
                     if (editText.text.isEmpty()) {
-                        editText.hint = "___"
+                        editText.hint = "\n__\n  "
                     }
                 }
 
