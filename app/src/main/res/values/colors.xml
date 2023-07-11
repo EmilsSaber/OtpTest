@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="whites">#B5B0B0</color>
     <color name="grayOtp">#AAADB2</color>
+    <color name="darkText">#222222</color>
+    <color name="accentRed">#E0554D</color>
+    <color name="systemGreen">#48CA32</color>
 </resources>
